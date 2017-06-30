@@ -1,0 +1,34 @@
+<div class="uz9-capture-area-container">
+
+	<!-- Loading -->
+	<div id="uz9-js-loading-container" class="uz9-loading-container">
+		<div class="uz9-loading"></div>
+		<span>Loading</span>
+	</div>
+
+	<div id="uz9-capture-contents" class="disabled">
+
+		<div id="uz9-capture-ratio-container" class="uz9-capture-ratio-container">
+			<span>1. 比率を選択する</span>
+			<label><input type="radio" name="ratio" value="1.0"> 1x</label>
+			<label><input type="radio" name="ratio" value="2.0" checked> 2x</label>
+		</div>
+
+		<!-- Buttons -->
+		<div id="uz9-capture-button-container" class="uz9-capture-button-container">
+			<button id="uz9-capture-button" class="uz9-button">2. Capture</button>
+			<a id="uz9-download-button" class="uz9-button" download="nico-live-capture.jpg">3. Download image</a>
+			<p>※毎回キャプチャーしないと同じ画像をダウンロードし続けることになるのでご注意ください。</p>
+		</div>
+
+		<!-- Captured image -->
+		<div id="uz9-canvas-container-outer">
+			<div id="uz9-canvas-container" class="uz9-canvas-container">
+				<canvas class="uz9-canvas" id="uz9-canvas"></canvas>
+			</div>
+		</div>
+
+	</div>
+	<!-- /uz9-capture-contents -->
+
+</div>
