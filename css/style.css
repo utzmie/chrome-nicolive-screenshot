@@ -1,5 +1,12 @@
+/**
+ * Container
+ */
 .uz9-capture-area-container {
 	position: relative;
+}
+
+.uz9-capture-area-container p {
+	margin: 1em 0;
 }
 
 #uz9-capture-contents {
@@ -176,4 +183,36 @@
 @keyframes uz9-loading-spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
+}
+
+
+/**
+ * Flash player
+ */
+
+.uz9-capture-area-container.uz9-is-flash-player {
+	box-sizing: border-box;
+	max-width: 960px;
+	margin: 1em auto;
+	padding: .25em 1em;
+	border: 2px solid #999999;
+}
+
+.uz9-capture-area-container .uz9-flash-notification {
+	padding-left: 1.5em;
+	text-indent: -1.5em;
+	line-height: 1.6;
+}
+
+/* Icon */
+.uz9-capture-area-container .uz9-flash-notification:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: .5em;
+	width: 1em;
+	height: 1em;
+	background: url('chrome-extension://__MSG_@@extension_id__/img/icon48.png') no-repeat 50% 50%;
+	-webkit-background-size: 100% auto;
+	background-size: 100% auto;
 }
