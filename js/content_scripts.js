@@ -90,7 +90,12 @@
 	else if ( $('#flvplayer_container')[0] ) {
 
 		var $extensionContents = $('<div class="uz9-capture-area-container uz9-is-flash-player">');
-			$('#slider_container').after($extensionContents);
+
+		if ( $('#slider_container')[0] ) {
+			$('#slider_container').after($extensionContents); // 一般の生放送
+		} else {
+			$('#watch_player_box').after($extensionContents); // オフィシャル系？
+		}
 
 		var $flashNotification = $('<p class="uz9-flash-notification">通常配信による放送のため、スクショ機能が利用できません。<br />放送主が「新配信」で放送を行なっているときに利用できます。</p>');
 			$flashNotification.appendTo($extensionContents);
