@@ -198,6 +198,10 @@
 	border: 2px solid #999999;
 }
 
+.uz9-capture-area-container.uz9-is-flash-player.uz9-is-new-broadcast {
+	max-width: 1024px;
+}
+
 .uz9-capture-area-container .uz9-flash-notification {
 	padding-left: 1.5em;
 	text-indent: -1.5em;

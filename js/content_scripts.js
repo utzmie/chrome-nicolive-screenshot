@@ -10,76 +10,89 @@
 		$container = $('#player-container'); // オフィシャル系？
 	}
 
-
-	// 放送中
+	// 新配信
 	if ( $container[0] ) {
 
-		// Include HTML
-		$.get(chrome.extension.getURL('./button.html'), function(data) {
-			$($.parseHTML(data)).appendTo($container);
-		});
+		// HTML5版で視聴中（使用可能な状態）
+		if ( $('#message-for-html5player-block')[0] || $('.message-for-html5player')[0] ) {
 
-		// Onload
-		$(window).on('load', function() {
+			// Include HTML
+			$.get(chrome.extension.getURL('./button.html'), function(data) {
+				$($.parseHTML(data)).appendTo($container);
+			});
 
-			var buttonContainer = document.getElementById('uz9-capture-button-container');
-			var captureButton   = document.getElementById('uz9-capture-button');
-			var downloadButton  = document.getElementById('uz9-download-button');
+			$(window).on('load', function() {
 
-			var canvasContainer = document.getElementById('uz9-canvas-container');
-			var canvas          = document.getElementById('uz9-canvas');
-			var cxt             = canvas.getContext('2d');
+				var buttonContainer = document.getElementById('uz9-capture-button-container');
+				var captureButton   = document.getElementById('uz9-capture-button');
+				var downloadButton  = document.getElementById('uz9-download-button');
 
-			var target = $container.find('video[src^="blob:http://live2.nicovideo.jp/"]')[0];
+				var canvasContainer = document.getElementById('uz9-canvas-container');
+				var canvas          = document.getElementById('uz9-canvas');
+				var cxt             = canvas.getContext('2d');
 
-			// Remove Loading...
-			$('#uz9-capture-contents').removeClass('disabled');
-			$('#uz9-js-loading-container').remove();
+				var target = $container.find('video[src^="blob:http://live2.nicovideo.jp/"]')[0];
 
-			// Ratio
-			var $ratio;
-			var $ratioElmContainer = $('#uz9-capture-ratio-container');
-			var $ratioElm          = $('#uz9-capture-ratio-container').find('input:checked');
+				// Remove Loading...
+				$('#uz9-capture-contents').removeClass('disabled');
+				$('#uz9-js-loading-container').remove();
 
-			// Default
-			if ( $ratioElm.val() ) {
-				$ratio = $ratioElm.val();
-			} else {
-				$ratio = 2.0;
-			}
+				// Ratio
+				var $ratio;
+				var $ratioElmContainer = $('#uz9-capture-ratio-container');
+				var $ratioElm          = $('#uz9-capture-ratio-container').find('input:checked');
 
-			// Change ratio
-			$ratioElmContainer.children('label').on('click', function() {
-				$ratio = $(this).children('input').val();
-
-				if ( $ratio == 1.0 ) {
-					$('#uz9-canvas-container-outer').addClass('x1');
+				// Default
+				if ( $ratioElm.val() ) {
+					$ratio = $ratioElm.val();
 				} else {
-					$('#uz9-canvas-container-outer').removeClass('x1');
+					$ratio = 2.0;
 				}
+
+				// Change ratio
+				$ratioElmContainer.children('label').on('click', function() {
+					$ratio = $(this).children('input').val();
+
+					if ( $ratio == 1.0 ) {
+						$('#uz9-canvas-container-outer').addClass('x1');
+					} else {
+						$('#uz9-canvas-container-outer').removeClass('x1');
+					}
+				});
+
+				// Draw canvas
+				captureButton.addEventListener('click', function() {
+					canvas.width = target.clientWidth * $ratio;
+					canvas.height = target.clientHeight * $ratio;
+					cxt.drawImage(target, 0, 0, canvas.width, canvas.height);
+				}, false);
+
+				// Download image
+				downloadButton.addEventListener('click', function() {
+					var dt = canvas.toDataURL('image/jpg');
+					this.href = dt;
+				});
 			});
+		}
 
-			// Draw canvas
-			captureButton.addEventListener('click', function() {
-				canvas.width = target.clientWidth * $ratio;
-				canvas.height = target.clientHeight * $ratio;
-				cxt.drawImage(target, 0, 0, canvas.width, canvas.height);
-			}, false);
+		// 新配信だけどユーザーがFlash版で再生
+		else if ( $('#playerswf')[0] ) {
+			var $extensionContents = $('<div class="uz9-capture-area-container uz9-is-flash-player uz9-is-new-broadcast">');
+			$('#player-block').after($extensionContents); // 一般の生放送
+			$('#player-container').after($extensionContents); // オフィシャル系？
 
-			// Download image
-			downloadButton.addEventListener('click', function() {
-				var dt = canvas.toDataURL('image/jpg');
-				this.href = dt;
-			});
-		});
+			var $flashNotification = $('<p class="uz9-flash-notification">Flashプレイヤーでの視聴のため、スクショ機能が利用できません。</p>');
+				$flashNotification.appendTo($extensionContents);
+		}
+	}
 
-	// Flashプレイヤー
-	} else if ( $('#flvplayer_container')[0] ) {
+	// 通常配信
+	else if ( $('#flvplayer_container')[0] ) {
 
 		var $extensionContents = $('<div class="uz9-capture-area-container uz9-is-flash-player">');
 			$('#slider_container').after($extensionContents);
 
-		var $flashNotification = $('<p class="uz9-flash-notification">Flashプレイヤーでの視聴 or 通常配信による放送のため、スクショ機能が利用できません。<br />放送主が「新配信」で放送を行なっているときに利用できます。</p>');
+		var $flashNotification = $('<p class="uz9-flash-notification">通常配信による放送のため、スクショ機能が利用できません。<br />放送主が「新配信」で放送を行なっているときに利用できます。</p>');
 			$flashNotification.appendTo($extensionContents);
 	}
 
