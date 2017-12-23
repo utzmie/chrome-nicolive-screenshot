@@ -1,6 +1,6 @@
 {
 	"name": "ニコ生・映像だけスクショ（HTML5のみ）",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"manifest_version": 2,
 	"description": "HTML5版のニコ生で、映像部分のスクリーンショットを撮るだけ。",
 	"icons": {

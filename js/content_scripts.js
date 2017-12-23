@@ -69,7 +69,7 @@
 
 				// Download image
 				downloadButton.addEventListener('click', function() {
-					var dt = canvas.toDataURL('image/jpg');
+					var dt = canvas.toDataURL('image/png');
 					this.href = dt;
 				});
 			});
