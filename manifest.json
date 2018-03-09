@@ -1,6 +1,6 @@
 {
-	"name": "ニコ生・映像だけスクショ（HTML5のみ）",
-	"version": "0.2.4",
+	"name": "ニコ生・映像だけスクショ",
+	"version": "0.2.5",
 	"manifest_version": 2,
 	"description": "HTML5版のニコ生で、映像部分のスクリーンショットを撮るだけ。",
 	"icons": {
@@ -9,7 +9,7 @@
 		"128": "img/icon128.png"
 	},
 	"browser_action": {
-		"default_title": "ニコ生・映像だけスクショ（HTML5のみ）",
+		"default_title": "ニコ生・映像だけスクショ",
 		"default_icon": {
 			"19": "img/icon19.png",
 			"38": "img/icon38.png"
